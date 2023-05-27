@@ -1,0 +1,7 @@
+syntax = "proto3";
+package vedhavyas.cfsre.cfsre;
+
+option go_package = "github.com/vedhavyas/cf-sre/x/cfsre/types";
+
+// Msg defines the Msg service.
+service Msg {}

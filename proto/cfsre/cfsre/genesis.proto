@@ -1,0 +1,12 @@
+syntax = "proto3";
+package vedhavyas.cfsre.cfsre;
+
+import "gogoproto/gogo.proto";
+import "cfsre/cfsre/params.proto";
+
+option go_package = "github.com/vedhavyas/cf-sre/x/cfsre/types";
+
+// GenesisState defines the cfsre module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
