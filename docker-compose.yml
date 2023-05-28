@@ -1,0 +1,106 @@
+version: "3"
+
+services:
+  node0:
+    container_name: node0
+    image: vedhavyas/cf-sre
+    command: ["cf-sred", "start"]
+    restart: unless-stopped
+    environment:
+      - DEBUG=1
+      - ID=0
+      - LOG=${LOG:-app.log}
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "26656-26657:26656-26657"
+      - "1317:1317"
+      - "9090:9090"
+      - "2345:2345"
+    volumes:
+      - ./.testnets/node0/cf-sre:/root/.cf-sre:Z
+    networks:
+      testnet:
+        ipv4_address: 10.10.0.2
+
+  node1:
+    container_name: node1
+    image: vedhavyas/cf-sre
+    command: ["cf-sred", "start"]
+    restart: unless-stopped
+    environment:
+      - DEBUG=0
+      - ID=1
+      - LOG=${LOG:-app.log}
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "26666-26667:26656-26657"
+      - "1318:1317"
+      - "9091:9090"
+      - "2346:2345"
+    volumes:
+      - ./.testnets/node1/cf-sre:/root/.cf-sre:Z
+    networks:
+      testnet:
+        ipv4_address: 10.10.0.3
+
+  node2:
+    container_name: node2
+    image: vedhavyas/cf-sre
+    command: ["cf-sred", "start"]
+    restart: unless-stopped
+    environment:
+      - DEBUG=0
+      - ID=2
+      - LOG=${LOG:-app.log}
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "26676-26677:26656-26657"
+      - "1319:1317"
+      - "9092:9090"
+      - "2347:2345"
+    volumes:
+      - ./.testnets/node2/cf-sre:/root/.cf-sre:Z
+    networks:
+      testnet:
+        ipv4_address: 10.10.0.4
+
+  node3:
+    container_name: node3
+    image: vedhavyas/cf-sre
+    command: ["cf-sred", "start"]
+    restart: unless-stopped
+    environment:
+      - DEBUG=0
+      - ID=3
+      - LOG=${LOG:-app.log}
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "26686-26687:26656-26657"
+      - "1320:1317"
+      - "9093:9090"
+      - "2348:2345"
+    volumes:
+      - ./.testnets/node3/cf-sre:/root/.cf-sre:Z
+    networks:
+      testnet:
+        ipv4_address: 10.10.0.5
+
+networks:
+  testnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.0/25
